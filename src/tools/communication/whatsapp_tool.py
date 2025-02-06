@@ -1,40 +1,36 @@
+from smolagents import Tool, CodeAgent
 from twilio.rest import Client
-from smolagents import tool, CodeAgent
 
-@tool
-def send_whatsapp_message(to: str, message: str) -> str:
-    """
-    Sends a WhatsApp message to a specified phone number using Twilio's API.
+class SendWhatsAppMessageTool(Tool):
+    name = "send_whatsapp_message"
+    description = "Sends a WhatsApp message to a specified phone number using Twilio's API."
+    inputs = {
+        "to": {"type": "string", "description": "The recipient's phone number in international format (e.g., '+1234567890')"},
+        "message": {"type": "string", "description": "The text message to send via WhatsApp"}
+    }
+    output_type = "string"
 
-    Args:
-        to: The recipient's phone number in **international format** (e.g., '+1234567890').
-        message: The text message to send via WhatsApp.
+    def __init__(self, account_sid, auth_token, from_number):
+        super().__init__()
+        self.account_sid = account_sid
+        self.auth_token = auth_token
+        self.from_number = f"whatsapp:{from_number}"  # Twilio WhatsApp number
 
-    Returns:
-        str: A confirmation message if the message was sent successfully, or an error message if the sending fails.
+    def forward(self, to: str, message: str) -> str:
+        try:
+            client = Client(self.account_sid, self.auth_token)
+            to_number = f"whatsapp:{to}"
 
-    Raises:
-        Exception: If there's an error with the Twilio API request.
-    """
-    # Replace with your actual Twilio credentials
-    account_sid = "XXXXX" # add your twilio account sid here
-    auth_token = "XXXXX" # add your twilio auth token here
-    from_number = "whatsapp:+XXXXX" # add your twilio whatsapp number here
+            sent_message = client.messages.create(
+                body=message,
+                from_=self.from_number,
+                to=to_number
+            )
 
-    try:
-        client = Client(account_sid, auth_token)
-        to_number = f"whatsapp:{to}"
-
-        sent_message = client.messages.create(
-            body=message,
-            from_=from_number,
-            to=to_number
-        )
-
-        return f"WhatsApp message sent to {to}. SID: {sent_message.sid}"
-    
-    except Exception as e:
-        return f"Failed to send WhatsApp message: {str(e)}"
+            return f"WhatsApp message sent to {to}. SID: {sent_message.sid}"
+        
+        except Exception as e:
+            return f"Failed to send WhatsApp message: {str(e)}"
 
 # If you want to use the ToolCallingAgent instead, uncomment the following lines as they both will work
 
@@ -46,10 +42,25 @@ def send_whatsapp_message(to: str, message: str) -> str:
 # )
 
 # we now give it the tool we want to use
-agent = CodeAgent(
-    tools=[
-        send_whatsapp_message,
-    ],
-    model=model,
+from smolagents import CodeAgent
+from .send_whatsapp_tool import SendWhatsAppMessageTool
+
+# Initialize the WhatsApp Tool with your Twilio credentials
+whatsapp_tool = SendWhatsAppMessageTool(
+    account_sid="your_twilio_account_sid",
+    auth_token="your_twilio_auth_token",
+    from_number="+your_twilio_whatsapp_number"
 )
-agent.run("Send a WhatsApp message to +XXXX saying 'Hello i'm chatgpt but from agentexec!!'")
+
+# Set up your model (replace with your preferred model)
+from smolagents.models import HfApiModel
+model = HfApiModel()
+
+# Create the agent with the WhatsApp tool
+agent = CodeAgent(
+    tools=[whatsapp_tool],
+    model=model
+)
+
+# Run the agent with a WhatsApp task
+agent.run("Send a WhatsApp message to +1234567890 saying 'Hello from brik!'")
