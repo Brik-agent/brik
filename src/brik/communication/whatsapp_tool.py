@@ -42,7 +42,6 @@ class SendWhatsAppMessageTool(Tool):
 # )
 
 # we now give it the tool we want to use
-from .send_whatsapp_tool import SendWhatsAppMessageTool
 
 # Initialize the WhatsApp Tool with your Twilio credentials
 whatsapp_tool = SendWhatsAppMessageTool(
@@ -51,15 +50,19 @@ whatsapp_tool = SendWhatsAppMessageTool(
     from_number="+your_twilio_whatsapp_number"
 )
 
-# Set up your model (replace with your preferred model)
-from smolagents.models import HfApiModel
-model = HfApiModel()
+# # Set up your model (replace with your preferred model)
+# from smolagents.models import HfApiModel
+# model = HfApiModel()
 
-# Create the agent with the WhatsApp tool
-agent = CodeAgent(
-    tools=[whatsapp_tool],
-    model=model
-)
+# # Create the agent with the WhatsApp tool
+# agent = CodeAgent(
+#     tools=[whatsapp_tool],
+#     model=model
+# )
 
-# Run the agent with a WhatsApp task
-agent.run("Send a WhatsApp message to +1234567890 saying 'Hello from brik!'")
+# # Run the agent with a WhatsApp task
+# agent.run("Send a WhatsApp message to +1234567890 saying 'Hello from brik!'")
+
+__all__ = [
+    "SendWhatsAppMessageTool",
+]

@@ -75,29 +75,33 @@ class SendSlackMessageTool(Tool):
         except Exception as e:
             return f"An error occurred while sending the message: {str(e)}"
 
-from smolagents import CodeAgent
+# from smolagents import CodeAgent
 
-# Initialize the Slack Tool
-slack_tool = SendSlackMessageTool()
+# # Initialize the Slack Tool
+# slack_tool = SendSlackMessageTool()
 
-# Set up your model (replace with your preferred model)
-from smolagents.models import HfApiModel
-model = HfApiModel()
+# # Set up your model (replace with your preferred model)
+# from smolagents.models import HfApiModel
+# model = HfApiModel()
 
-# Create the agent with the Slack Tool
-agent = CodeAgent(
-    tools=[slack_tool],
-    model=model
-)
+# # Create the agent with the Slack Tool
+# agent = CodeAgent(
+#     tools=[slack_tool],
+#     model=model
+# )
 
-# Run the agent with a rich message task
-agent.run("""
-Send a message to my Slack channel using the webhook URL 'https://hooks.slack.com/services/your_webhook_url'.
-The message should say '*Hello from brik!* Here is your update.'
+# # Run the agent with a rich message task
+# agent.run("""
+# Send a message to my Slack channel using the webhook URL 'https://hooks.slack.com/services/your_webhook_url'.
+# The message should say '*Hello from brik!* Here is your update.'
 
-Add an attachment with title 'Important Update', text 'The deployment was successful!', and color '#FF5733'.
+# Add an attachment with title 'Important Update', text 'The deployment was successful!', and color '#FF5733'.
 
-Include two buttons: 
-1. Text 'View Logs' with value 'logs' and action_id 'view_logs'
-2. Text 'Restart' with value 'restart' and action_id 'restart_server'
-""")
+# Include two buttons: 
+# 1. Text 'View Logs' with value 'logs' and action_id 'view_logs'
+# 2. Text 'Restart' with value 'restart' and action_id 'restart_server'
+# """)
+
+__all__ = [
+    "SendSlackMessageTool",
+]

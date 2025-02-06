@@ -34,20 +34,24 @@ class SendDiscordMessageTool(Tool):
         except Exception as e:
             return f"An error occurred while sending the message: {str(e)}"
 
-from smolagents import CodeAgent
+# from smolagents import CodeAgent
 
-# Initialize the Discord Tool (Webhooks don't require additional credentials)
-discord_tool = SendDiscordMessageTool()
+# # Initialize the Discord Tool (Webhooks don't require additional credentials)
+# discord_tool = SendDiscordMessageTool()
 
-# Set up your model (replace with your preferred model)
-from smolagents.models import HfApiModel
-model = HfApiModel()
+# # Set up your model (replace with your preferred model)
+# from smolagents.models import HfApiModel
+# model = HfApiModel()
 
-# Create the agent with the Discord Tool
-agent = CodeAgent(
-    tools=[discord_tool],
-    model=model
-)
+# # Create the agent with the Discord Tool
+# agent = CodeAgent(
+#     tools=[discord_tool],
+#     model=model
+# )
 
-# Run the agent with a Discord message task
-agent.run("Send a message to my Discord channel saying 'Hello from brik!' using the webhook URL 'https://discord.com/api/webhooks/your_webhook_url'")
+# # Run the agent with a Discord message task
+# agent.run("Send a message to my Discord channel saying 'Hello from brik!' using the webhook URL 'https://discord.com/api/webhooks/your_webhook_url'")
+
+__all__ = [
+    "SendDiscordMessageTool",
+]

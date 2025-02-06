@@ -59,25 +59,29 @@ class SendEmailTool(Tool):
         except Exception as e:
             return f"Failed to send email: {str(e)}"
 
-from smolagents import CodeAgent
+# from smolagents import CodeAgent
 
-# Initialize the Email Tool with your SMTP settings (Example for Gmail)
-email_tool = SendEmailTool(
-    smtp_server="smtp.gmail.com",
-    smtp_port=587,  # Use 465 for SSL or 587 for TLS
-    sender_email="your_email@gmail.com",
-    sender_password="your_app_password"  # Use App Password for Gmail
-)
+# # Initialize the Email Tool with your SMTP settings (Example for Gmail)
+# email_tool = SendEmailTool(
+#     smtp_server="smtp.gmail.com",
+#     smtp_port=587,  # Use 465 for SSL or 587 for TLS
+#     sender_email="your_email@gmail.com",
+#     sender_password="your_app_password"  # Use App Password for Gmail
+# )
 
-# Set up your model (replace with your preferred model)
-from smolagents.models import HfApiModel
-model = HfApiModel()
+# # Set up your model (replace with your preferred model)
+# from smolagents.models import HfApiModel
+# model = HfApiModel()
 
-# Create the agent with the Email Tool
-agent = CodeAgent(
-    tools=[email_tool],
-    model=model
-)
+# # Create the agent with the Email Tool
+# agent = CodeAgent(
+#     tools=[email_tool],
+#     model=model
+# )
 
-# Run the agent with an email task
-agent.run("Send an email to recipient@example.com with the subject 'Hello from brik' and the message 'This is a test email sent by AI.'")
+# # Run the agent with an email task
+# agent.run("Send an email to recipient@example.com with the subject 'Hello from brik' and the message 'This is a test email sent by AI.'")
+
+__all__ = [
+    "SendEmailTool",
+]
