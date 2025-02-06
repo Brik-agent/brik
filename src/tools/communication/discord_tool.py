@@ -27,7 +27,7 @@ class SendDiscordMessageTool(Tool):
             response = requests.post(webhook_url, json=data)
 
             if response.status_code == 204:
-                return f"Message successfully sent to Discord channel."
+                return "Message successfully sent to Discord channel."
             else:
                 return f"Failed to send message. HTTP Status: {response.status_code}, Response: {response.text}"
         

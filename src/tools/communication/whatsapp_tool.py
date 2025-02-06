@@ -42,7 +42,6 @@ class SendWhatsAppMessageTool(Tool):
 # )
 
 # we now give it the tool we want to use
-from smolagents import CodeAgent
 from .send_whatsapp_tool import SendWhatsAppMessageTool
 
 # Initialize the WhatsApp Tool with your Twilio credentials
