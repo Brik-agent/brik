@@ -1,4 +1,4 @@
-from smolagents import Tool, CodeAgent
+from smolagents import Tool
 from twilio.rest import Client
 
 class SendWhatsAppMessageTool(Tool):

@@ -6,8 +6,11 @@ class SendDiscordMessageTool(Tool):
     name = "send_discord_message"
     description = "Sends a message to a specified Discord channel using a webhook."
     inputs = {
-        "webhook_url": {"type": "string", "description": "The Discord webhook URL for the target channel."},
-        "message": {"type": "string", "description": "The message to send to the Discord channel."}
+        "webhook_url": {"type": "string", "description": "The Slack webhook URL for the target channel."},
+        "message": {"type": "string", "description": "The main message content to send to the Slack channel."},
+        "attachments": {"type": "array", "items": {"type": "object"}, "description": "Optional list of attachment objects with keys: title, text, color.", "nullable": True},
+        "buttons": {"type": "array", "items": {"type": "object"}, "description": "Optional list of button objects with keys: text, value, action_id.", "nullable": True},
+        "file_url": {"type": "string", "description": "Optional URL of a file to attach.", "nullable": True}
     }
     output_type = "string"
 

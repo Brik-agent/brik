@@ -9,10 +9,11 @@ class SendSlackMessageTool(Tool):
     inputs = {
         "webhook_url": {"type": "string", "description": "The Slack webhook URL for the target channel."},
         "message": {"type": "string", "description": "The main message content to send to the Slack channel."},
-        "attachments": {"type": "list", "description": "Optional list of attachment objects (title, text, color).", "nullable": True},
-        "buttons": {"type": "list", "description": "Optional list of button objects (text, value, action_id).", "nullable": True},
+        "attachments": {"type": "array", "items": {"type": "object"}, "description": "Optional list of attachment objects with keys: title, text, color.", "nullable": True},
+        "buttons": {"type": "array", "items": {"type": "object"}, "description": "Optional list of button objects with keys: text, value, action_id.", "nullable": True},
         "file_url": {"type": "string", "description": "Optional URL of a file to attach.", "nullable": True}
     }
+
     output_type = "string"
 
     def forward(self, webhook_url: str, message: str, attachments=None, buttons=None, file_url=None) -> str:
